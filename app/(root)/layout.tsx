@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
