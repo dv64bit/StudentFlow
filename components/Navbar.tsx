@@ -1,6 +1,7 @@
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import Theme from "./shared/navbar/Theme";
 
 const Navbar = () => {
   return (
@@ -16,9 +17,9 @@ const Navbar = () => {
           Student<span className="text-primary-500">Flow</span>
         </p>
       </Link>
-      GlobarSearch
-      <div>
-        Theme
+      {/* GlobarSearch */}
+      <div className="flex-between gap-5">
+        <Theme />
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
