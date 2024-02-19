@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/shared/navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
