@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "A community-driven platform for asking and answering questions. Get help, share konwledge, and collaborate with studends from around the campus. Explore topics in Clubs, Development, Hobbies, Gossips, Career Questions",
   icons: {
-    icon: "/public/assets/images/site-logo.svg",
+    icon: "/assets/images/site-logo.svg", // /public path
   },
 };
 

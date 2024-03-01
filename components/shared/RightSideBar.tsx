@@ -6,29 +6,29 @@ import TagHolder from "./TagHolder";
 
 const topQuestion = [
   {
-    _id: 1,
+    _id: "1",
     title:
       "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
   },
   {
-    _id: 2,
+    _id: "2",
     title: "Is it only me or the font is bolder than necessary?",
   },
   {
-    _id: 3,
+    _id: "3",
     title: "Can I get the course for free?",
   },
   {
-    _id: 4,
+    _id: "4",
     title: "Redux Toolkit Not Updating State as Expected",
   },
 ];
 
 const popularQuestionTags = [
-  { _id: 1, name: "iNurture", totalQuestions: 5 },
-  { _id: 2, name: "SPPU", totalQuestions: 5 },
-  { _id: 3, name: "Course", totalQuestions: 5 },
-  { _id: 4, name: "Faculty", totalQuestions: 5 },
+  { _id: "1", name: "iNurture", totalQuestions: 5 },
+  { _id: "2", name: "SPPU", totalQuestions: 5 },
+  { _id: "3", name: "Course", totalQuestions: 5 },
+  { _id: "4", name: "Faculty", totalQuestions: 5 },
 ];
 
 const RightSideBar = () => {

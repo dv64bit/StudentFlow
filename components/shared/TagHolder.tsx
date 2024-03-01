@@ -3,9 +3,9 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 
 interface Props {
-  _id: number;
+  _id: string;
   name: string;
-  totalQuestions: number;
+  totalQuestions?: number;
   showCount?: boolean; //'?' <- this symbol represent that it is an optional prop to send
 }
 
