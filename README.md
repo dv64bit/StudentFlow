@@ -1,4 +1,7 @@
-# StudentFlow
+<div style="item-center">
+  <h1 style="text-align: center;">StudentFlow</h1> 
+ <img src="https://github.com/dv64bit/StudentFlow/assets/72154120/e19b76d1-a44d-47b8-88fe-2f6259ccbf4b" alt="logo" width="200"/>
+</div>
 
 ## Description
 
