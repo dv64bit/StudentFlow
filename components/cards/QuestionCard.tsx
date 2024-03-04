@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React, { use } from "react";
 import { Interface } from "readline";
-import TagHolder from "../TagHolder";
-import Matric from "../Matric";
+import TagHolder from "../shared/TagHolder";
+import Matric from "../shared/Matric";
 import { formatNumber, getCreatedTimeStamp } from "@/lib/utils";
 
 interface QuestionProps {
