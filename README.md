@@ -1,3 +1,18 @@
+<br />
+<div align="center">
+  <a href="#">
+    <img src="https://github.com/dv64bit/StudentFlow/assets/72154120/e19b76d1-a44d-47b8-88fe-2f6259ccbf4b" alt="Logo" width="200" height="200">
+  </a>
+
+  <h3 align="center">StudentFlow</h3>
+
+  <p align="center">
+    An awesome awsome project idea for our elders
+    <br />
+    <a href="https://youtu.be/pANT8F-W79Y">View Demo</a>
+  </p>
+</div>
+
 <div style="item-center">
   <h1 style="text-align: center;">StudentFlow</h1> 
  <img src="https://github.com/dv64bit/StudentFlow/assets/72154120/e19b76d1-a44d-47b8-88fe-2f6259ccbf4b" alt="logo" width="200"/>
