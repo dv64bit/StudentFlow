@@ -1,8 +1,10 @@
-// "use server";
+"use server";
 
-// export async function createQuesiton(params) {
-//   // eslint-disable-next-line no-empty
-//   try {
-//     // connect to DB
-//   } catch (error) {}
-// }
+import { connectToDatabase } from "../mongoose";
+
+export async function createQuesiton(params: any) {
+  // eslint-disable-next-line no-empty
+  try {
+    connectToDatabase();
+  } catch (error) {}
+}

@@ -19,6 +19,7 @@ import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuesiton } from "@/lib/actions/question.action";
 
 const type: any = "create";
 
@@ -39,7 +40,7 @@ const QuestionForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsFormSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsSubmitting(true);
@@ -47,12 +48,12 @@ const QuestionForm = () => {
     try {
       // make an async call to our API -> create a question
       // contain all form data
+      await createQuesiton({});
       // navigate to home page
     } catch (error) {
     } finally {
       setIsSubmitting(false);
     }
-    console.log(values);
   }
 
   const handleInputKeyDown = (
@@ -129,7 +130,7 @@ const QuestionForm = () => {
                 <span className="text-primary-500"> *</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                {/* todo: add an question explaination editor */}
+                {/* added a question explaination editor */}
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINYEDITOR_API_KEY}
                   init={{
@@ -152,7 +153,9 @@ const QuestionForm = () => {
                         Promise.reject("See docs to implement AI Assistant")
                       ),
                   }}
-                  initialValue="Explain your question here ..."
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
+                  initialValue=""
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Tulpen_One } from "next/font/google";
 
 let isConnected: boolean = false;
 
