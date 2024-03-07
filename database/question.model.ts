@@ -1,5 +1,4 @@
 import { Schema, model, models, Document } from "mongoose";
-import { number } from "zod";
 
 export interface IQuestion extends Document {
   title: string;
