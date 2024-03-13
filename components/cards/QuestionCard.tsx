@@ -10,12 +10,12 @@ interface QuestionProps {
   quesitonTitle: string;
   questionTags: {
     _id: string;
-    name: string;
+    tagName: string;
   }[];
   user: {
     _id: string;
-    name: string;
-    pictureUrl: string;
+    fullName: string;
+    profilePicture: string;
   };
   upvotes: number;
   views: number;
@@ -52,7 +52,7 @@ const QuestionCard = ({
 
       <div className="questionTagsHolder mt-3.5 flex flex-wrap gap-2">
         {questionTags.map((tag) => (
-          <TagHolder key={tag._id} _id={tag._id} name={tag.name} />
+          <TagHolder key={tag._id} _id={tag._id} name={tag.tagName} />
         ))}
       </div>
       <div className="metadataMatric flex-between mt-6 w-full flex-wrap gap-3">
@@ -60,11 +60,11 @@ const QuestionCard = ({
         <Matric
           imgUrl="/assets/icons/avatar.svg"
           alt="User"
-          value={user.name}
+          value={user.fullName}
           title={`- asked ${getCreatedTimeStamp(createdAt)}`}
           href={`/profile/${user._id}`}
           isUser
-          textStyles="body-medium text-dark400_light700"
+          textStyles="body-medium text-dark400_light800"
         />
 
         {/* This metric is created for the Votes section */}

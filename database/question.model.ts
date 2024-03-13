@@ -1,7 +1,7 @@
 import { Schema, model, models, Document } from "mongoose";
 
 export interface IQuestion extends Document {
-  title: string;
+  questionTitle: string;
   questionExplantion: string;
   questionTags: Schema.Types.ObjectId[]; //kyuki tags ek se zyda honge and unka ek seperate model create hoga isliye unko hum dusre model se refrence karenge
   views: number;
@@ -13,7 +13,7 @@ export interface IQuestion extends Document {
 }
 
 const QuestionSchema = new Schema({
-  title: { type: String, require: true },
+  questionTitle: { type: String, require: true },
   questionExplantion: { type: String, require: true },
   questionTags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
   views: { type: Number, default: 0 },

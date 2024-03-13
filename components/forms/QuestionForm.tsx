@@ -20,11 +20,18 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuesiton } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 
 const type: any = "create";
 
-const QuestionForm = () => {
+interface Props {
+  mongoUserId: string;
+}
+
+const QuestionForm = ({ mongoUserId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   // This is for the tiny Text Editor
   const editorRef = useRef(null);
@@ -48,8 +55,15 @@ const QuestionForm = () => {
     try {
       // make an async call to our API -> create a question
       // contain all form data
-      await createQuesiton({});
+      await createQuesiton({
+        questionTitle: values.title,
+        questionExplantion: values.explanation,
+        formTags: values.tags,
+        user: JSON.parse(mongoUserId),
+        path: pathname,
+      });
       // navigate to home page
+      router.push("/");
     } catch (error) {
     } finally {
       setIsSubmitting(false);
