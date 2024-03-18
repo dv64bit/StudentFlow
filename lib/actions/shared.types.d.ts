@@ -83,15 +83,15 @@ export interface ToggleSaveQuestionParams {
 
 export interface CreateUserParams {
   clerkId: string;
-  name: string;
+  fullName: string;
   username: string;
   email: string;
-  picture: string;
+  profilePicture: string;
 }
 
 export interface UpdateUserParams {
   clerkId: string;
-  updateData: Partial<IUser>;
+  updatedData: Partial<IUser>;
   path: string;
 }
 
