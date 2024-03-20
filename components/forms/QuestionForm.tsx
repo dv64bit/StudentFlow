@@ -151,9 +151,9 @@ const QuestionForm = ({ mongoUserId }: Props) => {
                     height: 350,
                     menubar: true,
                     plugins:
-                      "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
+                      "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker ",
                     toolbar:
-                      "undo redo | blocks fontfamily fontsize | codesample bold italic underline strikethrough | link image media | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                      "undo redo | blocks fontfamily fontsize | codesample bold italic underline strikethrough | link image media | spellcheckdialog | align lineheight |  numlist bullist indent outdent | emoticons charmap | removeformat",
                     content_style: "body {font-family: Intern;font-size:16px}",
                     tinycomments_mode: "embedded",
                     tinycomments_author: "Author name",
@@ -162,10 +162,6 @@ const QuestionForm = ({ mongoUserId }: Props) => {
                       { value: "Email", title: "Email" },
                     ],
                     //@ts-ignore
-                    ai_request: (request, respondWith) =>
-                      respondWith.string(() =>
-                        Promise.reject("See docs to implement AI Assistant")
-                      ),
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
