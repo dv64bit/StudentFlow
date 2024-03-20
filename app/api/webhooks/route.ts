@@ -53,6 +53,7 @@ export async function POST(req: Request) {
   const eventType = evt.type; //jo bhi event huva hai clerk side pe usse usse eventType pe store karo
 
   console.log({ eventType });
+  console.log("hi");
 
   //   Here we are getting all the user event data
   if (eventType === "user.created") {
