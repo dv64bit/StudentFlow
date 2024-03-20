@@ -91,7 +91,7 @@ export interface CreateUserParams {
 
 export interface UpdateUserParams {
   clerkId: string;
-  updatedData: Partial<IUser>;
+  updateData: Partial<IUser>;
   path: string;
 }
 

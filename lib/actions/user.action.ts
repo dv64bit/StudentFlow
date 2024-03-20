@@ -37,12 +37,12 @@ export async function createUser(userParam: CreateUserParams) {
 }
 
 // Yeh function hame database mai user update karne mai help kar rha hai
-export async function updatedUser(params: UpdateUserParams) {
+export async function updateUser(params: UpdateUserParams) {
   //CreateUserParams shared.types.d.ts mai maine userParam ke type ko define kiya hai
   try {
     connectToDatabase();
-    const { clerkId, updatedData, path } = params;
-    await User.findOneAndUpdate({ clerkId }, updatedData, {
+    const { clerkId, updateData, path } = params;
+    await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
     revalidatePath(path);
