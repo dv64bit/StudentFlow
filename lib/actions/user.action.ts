@@ -5,13 +5,14 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
 // Yeh function hame database se user find karne mai help kar rha hai
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
   try {
     connectToDatabase();
     const { userId } = params;
@@ -24,11 +25,11 @@ export async function getUserById(params: any) {
 }
 
 // Yeh function hame database mai user create karne mai help kar rha hai
-export async function createUser(userParam: CreateUserParams) {
+export async function createUser(userData: CreateUserParams) {
   //CreateUserParams shared.types.d.ts mai maine userParam ke type ko define kiya hai
   try {
     connectToDatabase();
-    const newUser = await User.create(userParam);
+    const newUser = await User.create(userData);
     return newUser;
   } catch (error) {
     console.log(error);
