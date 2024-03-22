@@ -1,4 +1,5 @@
 import { authMiddleware } from "@clerk/nextjs";
+import { any, string } from "zod";
 
 /**
  * Check which pages are public and which need to hide behind authentication.

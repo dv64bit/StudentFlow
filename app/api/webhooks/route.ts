@@ -50,40 +50,38 @@ export async function POST(req: Request) {
     });
   }
 
-  const eventType = evt.type; //jo bhi event huva hai clerk side pe usse usse eventType pe store karo
+  // Get the ID and type
+  const { id } = evt.data;
+  const eventType = evt.type;
 
-  console.log({ eventType });
-  console.log("hi");
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  console.log("Webhook body:", body);
 
-  //   Here we are getting all the user event data
   if (eventType === "user.created") {
-    //agar user create hota hai tab mujhe
     const { id, email_addresses, image_url, username, first_name, last_name } =
-      evt.data; //created user ki sari information mujhe la kar do
-
-    // jo bhi information maine retrive ki hai evt.data se uski madat se mai server action ko use kar ke apne database mai user create karna chahunga
-
-    // Create a new user in your database
+      evt.data;
+    //Create a new user in your database
     const mongoUser = await createUser({
       clerkId: id,
       fullName: `${first_name}${last_name ? `${last_name}` : ""}`,
       username: username!,
-      email: email_addresses[0].email_address,
       profilePicture: image_url,
+      email: email_addresses[0].email_address,
     });
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
+
   if (eventType === "user.updated") {
-    //agar user mai kuch update hota hai tab mujhe
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
+    //Create a new user in your database
     const mongoUser = await updateUser({
       clerkId: id,
       updateData: {
         fullName: `${first_name}${last_name ? `${last_name}` : ""}`,
         username: username!,
-        email: email_addresses[0].email_address,
         profilePicture: image_url,
+        email: email_addresses[0].email_address,
       },
       path: `/profile/${id}`,
     });
@@ -97,6 +95,5 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({ message: "OK", user: deletedUser });
   }
-
-  return new Response("", { status: 201 });
+  return new Response("", { status: 200 });
 }
