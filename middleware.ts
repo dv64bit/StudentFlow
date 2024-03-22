@@ -1,18 +1,20 @@
 import { authMiddleware } from "@clerk/nextjs";
 
+/**
+ * Check which pages are public and which need to hide behind authentication.
+ */
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/api/webhooks(.*)",
-    "question/:id",
+    "/api/webhook",
+    "/question/:id",
     "/tags",
-    "tags/:id",
+    "/tags/:id",
     "/profile/:id",
     "/community",
     "/jobs",
   ],
   ignoredRoutes: ["/api/webhook", "/api/chatgpt"],
-  debug: true,
 });
 
 export const config = {
