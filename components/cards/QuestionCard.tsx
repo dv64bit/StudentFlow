@@ -58,7 +58,7 @@ const QuestionCard = ({
       <div className="metadataMatric flex-between mt-6 w-full flex-wrap gap-3">
         {/* This metric is created for the User section */}
         <Matric
-          imgUrl="/assets/icons/avatar.svg"
+          imgUrl={user.profilePicture}
           alt="User"
           value={user.fullName}
           title={`- asked ${getCreatedTimeStamp(createdAt)}`}
