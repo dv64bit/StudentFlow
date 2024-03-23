@@ -64,7 +64,7 @@ const QuestionCard = ({
           title={`- asked ${getCreatedTimeStamp(createdAt)}`}
           href={`/profile/${user._id}`}
           isUser
-          textStyles="body-medium text-dark400_light800"
+          textStyle="body-medium text-dark400_light800"
         />
 
         {/* This metric is created for the Votes section */}
@@ -73,7 +73,7 @@ const QuestionCard = ({
           alt="Upvotes"
           value={formatNumber(upvotes)}
           title=" Votes"
-          textStyles="small-medium text-dark400_light800"
+          textStyle="small-medium text-dark400_light800"
         />
         {/* This metric is created for the Answers section */}
         <Matric
@@ -81,7 +81,7 @@ const QuestionCard = ({
           alt="Answers"
           value={formatNumber(answers.length)}
           title=" Answers"
-          textStyles="small-medium text-dark400_light800"
+          textStyle="small-medium text-dark400_light800"
         />
         {/* This metric is created for the Views section */}
         <Matric
@@ -89,7 +89,7 @@ const QuestionCard = ({
           alt="Views"
           value={formatNumber(views)}
           title=" Views"
-          textStyles="small-medium text-dark400_light800"
+          textStyle="small-medium text-dark400_light800"
         />
       </div>
     </div>

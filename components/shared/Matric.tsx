@@ -8,7 +8,7 @@ interface MetricProps {
   value: string | number;
   title: string;
   href?: string;
-  textStyles?: string;
+  textStyle?: string;
   isUser?: boolean; //this will check if the person seeing this question is the same as loggedIn user or not, based on that we will show the edit quesition opition
 }
 
@@ -17,7 +17,7 @@ const Matric = ({
   alt,
   value,
   title,
-  textStyles,
+  textStyle,
   href,
   isUser,
 }: MetricProps) => {
@@ -29,12 +29,12 @@ const Matric = ({
         width={16}
         height={16}
         alt={alt}
-        className={`object-contain ${href ? "rounded-full" : ""}`} //agar image user wali hai toh uske pass image ka url hoga toh uss situation mein mai user ki image rounded render karunga, agar url nahi raha toh matlab woh sirf other metadata hai jisko mai normally render karunga
+        className={`object-contain ${href && "rounded-full"}`} //agar image user wali hai toh uske pass image ka url hoga toh uss situation mein mai user ki image rounded render karunga, agar url nahi raha toh matlab woh sirf other metadata hai jisko mai normally render karunga
       />
-      <p className={`${textStyles} flex items-center gap-1`}>
+      <p className={`${textStyle} flex items-center gap-1`}>
         {value}
         <span
-          className={`small-regular line-clamp-1 ${isUser ? "max-sm:hidden" : ""}`}
+          className={`small-regular line-clamp-1 ${isUser && "max-sm:hidden"}`}
         >
           {title}
         </span>
@@ -44,16 +44,12 @@ const Matric = ({
 
   if (href) {
     return (
-      <Link href={href} className="flex justify-center items-center">
+      <Link href={href} className="flex-center gap-1">
         {contantMatric}
       </Link>
     );
   }
-  return (
-    <div className="flex justify-center items-center flex-wrap gap-1">
-      {contantMatric}
-    </div>
-  );
+  return <div className="flex-center flex-wrap gap-1">{contantMatric}</div>;
 };
 
 export default Matric;
