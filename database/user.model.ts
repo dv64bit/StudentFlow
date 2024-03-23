@@ -10,13 +10,13 @@ export interface IUser extends Document {
   profilePicture: string;
   location?: string;
   anyLink?: string;
-  fame?: number;
+  reputation?: number;
   savedQuestion: Schema.Types.ObjectId[];
   joinedAt: Date;
   answers: Schema.Types.ObjectId[];
-  course: string;
-  specialization: string;
-  college: string;
+  course?: string;
+  specialization?: string;
+  college?: string;
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -29,13 +29,13 @@ const UserSchema: Schema<IUser> = new Schema({
   profilePicture: { type: String, required: true },
   location: { type: String },
   anyLink: { type: String },
-  fame: { type: Number, default: 0 },
+  reputation: { type: Number, default: 0 },
   savedQuestion: [{ type: Schema.Types.ObjectId, ref: "Question" }],
-  joinedAt: { type: Date, required: true },
+  joinedAt: { type: Date, default: Date.now },
   answers: [{ type: Schema.Types.ObjectId, ref: "Answer" }],
-  course: { type: String, required: true },
-  specialization: { type: String, required: true },
-  college: { type: String, required: true },
+  course: { type: String },
+  specialization: { type: String },
+  college: { type: String },
 });
 
 const User = models.User || model("User", UserSchema); //using this line we are first check if the User models already exist in DB or not, and if it exist the we are going to create it
