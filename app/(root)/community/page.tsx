@@ -1,7 +1,9 @@
+import UserCard from "@/components/cards/UserCard";
 import FilterComp from "@/components/shared/FilterComp";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { UserFilters } from "@/constants/filter";
 import { getAllUsers } from "@/lib/actions/user.action";
+import Link from "next/link";
 
 const Page = async () => {
   const result = await getAllUsers({});
@@ -23,11 +25,14 @@ const Page = async () => {
       </div>
       <section className="mt-12 flex flex-wrap gap-4">
         {result.users.length > 0 ? (
-          result.users.map((user) => (
-            <div key={user.fullName}>{user.fullName}</div>
-          ))
+          result.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (
-          <div>No users yet</div>
+          <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
+            <p>No users yet</p>
+            <Link href="/sign-up" className="mt-2 font-bold text-accent-blue">
+              Join to be the first!
+            </Link>
+          </div>
         )}
       </section>
     </>
