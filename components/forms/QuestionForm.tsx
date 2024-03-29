@@ -21,6 +21,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuesiton } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
+import { useTheme } from "@/context/ThemeProvider";
 
 const type: any = "create";
 
@@ -29,6 +30,7 @@ interface Props {
 }
 
 const QuestionForm = ({ mongoUserId }: Props) => {
+  const { mode } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -161,6 +163,8 @@ const QuestionForm = ({ mongoUserId }: Props) => {
                       { value: "First.Name", title: "First Name" },
                       { value: "Email", title: "Email" },
                     ],
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "light",
                     //@ts-ignore
                   }}
                   onBlur={field.onBlur}
@@ -170,7 +174,7 @@ const QuestionForm = ({ mongoUserId }: Props) => {
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Introduce the problem and expand on what you put in the title.
-                Minimum 20 characters.
+                Minimum 100 characters.
               </FormDescription>
               <FormMessage className="text-rose-600" />
             </FormItem>

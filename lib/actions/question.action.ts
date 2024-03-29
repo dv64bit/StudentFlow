@@ -3,7 +3,11 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tag.model";
-import { CreateQuestionParms, GetQuestionsParams } from "./shared.types";
+import {
+  CreateQuestionParms,
+  GetQuestionByIdParams,
+  GetQuestionsParams,
+} from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 
@@ -55,4 +59,26 @@ export async function createQuesiton(params: CreateQuestionParms) {
 
     revalidatePath(path); //yeh mujhe home page ko bar bar refresh na karna pade new questions dekhne ke liye usske liye madat karta hai
   } catch (error) {}
+}
+
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    connectToDatabase();
+    const { questionId } = params;
+    const question = await Question.findById(questionId)
+      .populate({
+        path: "questionTags",
+        model: Tag,
+        select: "_id tagName", //yaha pe hum select kar sakte hai ki hame konse konse values chahiye Tags model se
+      })
+      .populate({
+        path: "user",
+        model: User,
+        select: "_id clerkId fullName profilePicture",
+      });
+    return question;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

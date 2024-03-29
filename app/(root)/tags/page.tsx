@@ -50,8 +50,8 @@ const Page = async () => {
           <ResultNotFound
             title="No Tags Found"
             description="It looks like there are no tags found."
-            link="/ask-question"
-            linkTitle="Ask a question"
+            buttonLink="/ask-question"
+            buttonTitle="Ask a question"
           />
         )}
       </section>
