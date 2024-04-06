@@ -17,7 +17,7 @@ interface QuestionProps {
     fullName: string;
     profilePicture: string;
   };
-  upvotes: number;
+  upvotes: string[];
   views: number;
   answers: Array<object>; //answer contain array of objects
   createdAt: Date;
@@ -71,7 +71,7 @@ const QuestionCard = ({
         <Matric
           imgUrl="/assets/icons/like.svg"
           alt="Upvotes"
-          value={formatNumber(upvotes)}
+          value={formatNumber(upvotes.length)}
           title=" Votes"
           textStyle="small-medium text-dark400_light800"
         />
