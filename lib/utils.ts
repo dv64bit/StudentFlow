@@ -45,3 +45,16 @@ export const formatNumber = (number: number): string => {
   }
   return number.toString();
 };
+
+//using Chatgpt:  get the javascript date object as a parameter and return a joined date(just a month and year)
+
+export const getJoinedDate = (date: Date): string => {
+  // Extract month and year from the date object
+  const month = date.toLocaleString("default", { month: "long" }); // Get full month name
+  const year = date.getFullYear(); // Get the year
+
+  // Concatenate month and year
+  const joinedDate = `${month} ${year}`;
+
+  return joinedDate;
+};

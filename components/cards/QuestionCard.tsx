@@ -6,6 +6,7 @@ import Matric from "../shared/Matric";
 import { formatNumber, getCreatedTimeStamp } from "@/lib/utils";
 
 interface QuestionProps {
+  clerkId?: string | null;
   _id: string;
   quesitonTitle: string;
   questionTags: {
@@ -24,6 +25,7 @@ interface QuestionProps {
 }
 
 const QuestionCard = ({
+  clerkId,
   _id,
   quesitonTitle,
   questionTags,

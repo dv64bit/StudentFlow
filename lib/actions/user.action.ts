@@ -9,12 +9,14 @@ import {
   GetAllUsersParams,
   GetSavedQuestionsParams,
   GetUserByIdParams,
+  GetUserStatsParams,
   ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
+import Answer from "@/database/answer.model";
 
 // Yeh function hame database se user find karne mai help kar rha hai
 export async function getUserById(params: GetUserByIdParams) {
@@ -164,6 +166,75 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
 
     const savedQuestion = user.savedQuestion;
     return { questions: savedQuestion };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getLoggedInUserInfo(params: GetUserByIdParams) {
+  try {
+    connectToDatabase();
+
+    const { userId } = params;
+
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const totalQuestions = await Question.countDocuments({ user: user._id });
+    const totalAnswers = await Answer.countDocuments({ user: user._id });
+    return {
+      user,
+      totalAnswers,
+      totalQuestions,
+    };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getUsersQuestions(params: GetUserStatsParams) {
+  try {
+    connectToDatabase();
+
+    const { userId, page = 1, pageSize = 10 } = params;
+
+    const totalUserQuestions = await Question.countDocuments({ user: userId });
+
+    const userAskedQuestions = await Question.find({ user: userId })
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .populate("questionTags", "_id tagName")
+      .populate("user", "_id clerkId fullName profilePicture");
+
+    return { totalUserQuestions, questions: userAskedQuestions };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getUsersAnswers(params: GetUserStatsParams) {
+  try {
+    connectToDatabase();
+
+    const { userId, page = 1, pageSize = 10 } = params;
+
+    const totalUserAnswers = await Answer.countDocuments({ user: userId });
+
+    const userAnswers = await Answer.find({ user: userId })
+      .sort({
+        upvotes: -1,
+      })
+      .populate("question", "_id questionTitle")
+      .populate("user", "_id clerkId fullName profilePicture");
+
+    return { totalUserAnswers, answers: userAnswers };
   } catch (error) {
     console.log(error);
     throw error;
