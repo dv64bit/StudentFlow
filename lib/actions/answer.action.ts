@@ -5,10 +5,13 @@ import { connectToDatabase } from "../mongoose";
 import {
   AnswerVoteParams,
   CreateAnswerParams,
+  DeleteAnswerParams,
   GetAnswersParams,
 } from "./shared.types";
 import Question from "@/database/question.model";
 import { revalidatePath } from "next/cache";
+import Interaction from "@/database/interaction.model";
+import { Tag } from "lucide-react";
 
 export async function createAnswer(params: CreateAnswerParams) {
   try {
@@ -119,5 +122,29 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
   } catch (error) {
     console.log(error);
     throw error;
+  }
+}
+
+export async function deleteAnswer(params: DeleteAnswerParams) {
+  try {
+    connectToDatabase();
+
+    const { answerId, path } = params;
+
+    const answer = await Answer.findById(answerId);
+
+    if (!answer) {
+      throw new Error("Answer not found");
+    }
+
+    await answer.deleteOne({ _id: answerId });
+    await Question.updateMany(
+      { _id: answerId },
+      { $pull: { answers: answerId } } //jis question se answer delete huva hai, uss question ko bhi bata do ki ab woh answer nahi raha isliye hum questions ke id mai se deleted answer ke id ko hata de rahe hai
+    );
+    await Interaction.deleteMany({ answer: answerId }); //Jo bhi interaction(views,upvotes...) selected answer se associated hai unn sab ko bhi uda do
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
   }
 }

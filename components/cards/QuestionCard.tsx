@@ -1,9 +1,10 @@
 import Link from "next/link";
-import React, { use } from "react";
-import { Interface } from "readline";
+import React from "react";
 import TagHolder from "../shared/TagHolder";
 import Matric from "../shared/Matric";
 import { formatNumber, getCreatedTimeStamp } from "@/lib/utils";
+import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionProps {
   clerkId?: string | null;
@@ -14,6 +15,7 @@ interface QuestionProps {
     tagName: string;
   }[];
   user: {
+    clerkId: string;
     _id: string;
     fullName: string;
     profilePicture: string;
@@ -35,6 +37,8 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
+  const showActionButtons = clerkId && clerkId === user.clerkId; //agar clerkId jo aai hai woh agar loggedIn user ke clerkId se milti hai tabhi ActionButton show karo
+
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
@@ -50,6 +54,11 @@ const QuestionCard = ({
           </Link>
         </div>
         {/* If signed in add edit option to edit/delete the question */}
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+          )}
+        </SignedIn>
       </div>
 
       <div className="questionTagsHolder mt-3.5 flex flex-wrap gap-2">

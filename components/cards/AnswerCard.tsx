@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
 import { formatNumber, getCreatedTimeStamp } from "@/lib/utils";
 import Matric from "../shared/Matric";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface Props {
   clerkId?: string | null;
@@ -29,7 +30,7 @@ const AnswerCard = ({
   upvotes,
   createdAt,
 }: Props) => {
-  const showActionButtons = clerkId && clerkId === user.clerkId;
+  const showActionButtons = clerkId && clerkId === user.clerkId; //agar clerkId jo aai hai woh agar loggedIn user ke clerkId se milti hai tabhi ActionButton show karo
 
   return (
     <div className="card-wrapper rounded-[10px] px-11 py-9">
@@ -43,12 +44,12 @@ const AnswerCard = ({
           </h3>
         </Link>
 
-        {/* Delete
-        // <SignedIn>
-        //   {showActionButtons && (
-        //     <EditDeleteAction type="answer" itemId={JSON.stringify(_id)} />
-        //   )}
-        // </SignedIn> */}
+        {/* Delete */}
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type="Answer" itemId={JSON.stringify(_id)} />
+          )}
+        </SignedIn>
       </div>
 
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
