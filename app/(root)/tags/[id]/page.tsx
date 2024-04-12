@@ -27,7 +27,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
       <div className="mt-10 flex w-full flex-col gap-6">
         {/* Looping through quesiton using map */}
         {result.questions.length > 0 ? (
-          result.questions.map((questions: IQuestion) => (
+          result.questions.map((questions: any) => (
             <QuestionCard
               key={questions._id}
               _id={questions._id}
