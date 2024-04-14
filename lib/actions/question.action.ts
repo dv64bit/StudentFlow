@@ -204,3 +204,20 @@ export async function editQuestion(params: EditQuestionParams) {
     console.log(error);
   }
 }
+
+export async function getTopQuestions() {
+  try {
+    connectToDatabase();
+
+    const topQuestions = await Question.find({})
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .limit(5); //showing the 5 questions with highest views and hightest upvotes in decending order
+    return topQuestions;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

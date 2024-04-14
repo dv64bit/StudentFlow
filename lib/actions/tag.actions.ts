@@ -4,11 +4,11 @@ import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import {
   GetAllTagsParams,
+  GetAllUsersParams,
   GetQuestionsByTagIdParams,
   GetTopInteractedTagsParams,
 } from "./shared.types";
 import Tag, { ITag } from "@/database/tag.model";
-import error from "next/error";
 import Question from "@/database/question.model";
 import { FilterQuery } from "mongoose";
 
@@ -89,6 +89,21 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
 
     const questions = tag.questions;
     return { tagTitle: tag.name, questions };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getPopularQuestionTags() {
+  try {
+    connectToDatabase();
+    const popularQuestionTags = await Tag.aggregate([
+      { $project: { tagName: 1, numberOfQuestions: { $size: "$questions" } } },
+      { $sort: { numberOfQuestions: -1 } },
+      { $limit: 5 },
+    ]); //showing the top 5 Tags with highest views and hightest upvotes in decending order
+    return popularQuestionTags;
   } catch (error) {
     console.log(error);
     throw error;

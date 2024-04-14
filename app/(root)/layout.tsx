@@ -1,5 +1,3 @@
-"use client";
-
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightSideBar";
 import Navbar from "@/components/shared/navbar/Navbar";
