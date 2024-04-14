@@ -6,6 +6,7 @@ import Tag from "@/database/tag.model";
 import {
   CreateQuestionParms,
   DeleteQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -174,6 +175,30 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
       { questions: questionId },
       { $pull: { questions: questionId } } //sare tags ko bhi bata do ki yeh question delete ho gaya hai and apne ap ko woh questions se alag kar le
     );
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function editQuestion(params: EditQuestionParams) {
+  try {
+    connectToDatabase();
+
+    const { questionId, title, content, path } = params;
+
+    const question =
+      await Question.findById(questionId).populate("questionTags");
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    question.questionTitle = title;
+    question.questionExplantion = content;
+
+    await question.save();
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
