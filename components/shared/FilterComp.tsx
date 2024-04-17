@@ -8,7 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Item } from "@radix-ui/react-menubar";
+import { useRouter, useSearchParams } from "next/navigation";
+import { formUrlQuery } from "@/lib/utils";
 
 interface Props {
   filterOptions: {
@@ -24,9 +25,26 @@ const FilterComp = ({
   otherClasses,
   containerClasses,
 }: Props) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const paramFilter = searchParams.get("filter");
+
+  const handleUrlUpdateParams = (value: string) => {
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: "filter",
+      value,
+    });
+    router.push(newUrl, { scroll: false });
+  };
+
   return (
     <div className={`relative ${containerClasses}`}>
-      <Select>
+      <Select
+        onValueChange={(value) => handleUrlUpdateParams(value)}
+        defaultValue={paramFilter || undefined}
+      >
         <SelectTrigger
           className={`${otherClasses} body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5`}
         >

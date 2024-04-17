@@ -14,6 +14,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   // yaha pe mai quesitons ko filter karne ke liye serchParams ka use kar raha hu, and jesa mai filter apply karunga wesa mujhe question home page pe dikhenge
   const result = await getQuestions({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
@@ -28,11 +29,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
-          route="/"
+          route={`/`}
           iconPos="left"
           iconSrc="/assets/icons/search.svg"
           placeholder="Search your query..."
-          otherClasses="flex-1"
+          otherClasses="flex-1 dark:text-white"
         />
         <FilterComp
           filterOptions={HomePageFilters}

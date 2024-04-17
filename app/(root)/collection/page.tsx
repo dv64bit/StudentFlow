@@ -17,6 +17,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getSavedQuestions({
     clerkId: userId,
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
@@ -28,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           iconPos="left"
           iconSrc="/assets/icons/search.svg"
           placeholder="Search your query..."
-          otherClasses="flex-1"
+          otherClasses="flex-1 dark:text-white"
         />
         <FilterComp
           filterOptions={QuestionFilters}

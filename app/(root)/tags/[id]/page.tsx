@@ -21,7 +21,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
           iconPos="left"
           iconSrc="/assets/icons/search.svg"
           placeholder="Search your query..."
-          otherClasses="flex-1"
+          otherClasses="flex-1 dark:text-white"
         />
       </div>
       <div className="mt-10 flex w-full flex-col gap-6">

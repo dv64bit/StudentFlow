@@ -21,7 +21,7 @@ export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDatabase();
 
-    const { searchQuery } = params;
+    const { searchQuery, filter } = params;
 
     const query: FilterQuery<typeof Question> = {};
 
@@ -32,10 +32,26 @@ export async function getQuestions(params: GetQuestionsParams) {
       ];
     }
 
+    let sortOptions = {};
+
+    switch (filter) {
+      case "newest":
+        sortOptions = { createdAt: -1 };
+        break;
+
+      case "frequent":
+        sortOptions = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+      default:
+        break;
+    }
+
     const questions = await Question.find(query)
       .populate({ path: "questionTags", model: Tag })
       .populate({ path: "user", model: User })
-      .sort({ createdAt: -1 }); //yeh mujhe latest question top pe return karta hai
+      .sort(sortOptions); //yeh mujhe latest question top pe return karta hai
     return { questions };
   } catch (error) {
     console.log(error);
