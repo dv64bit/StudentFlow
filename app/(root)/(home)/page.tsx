@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
+import result from "postcss/lib/result";
 
-export default async function Home() {
-  const result = await getQuestions({});
-
-  console.log(result.questions);
+export default async function Home({ searchParams }: SearchParamsProps) {
+  // yaha pe mai quesitons ko filter karne ke liye serchParams ka use kar raha hu, and jesa mai filter apply karunga wesa mujhe question home page pe dikhenge
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+  });
 
   return (
     <>

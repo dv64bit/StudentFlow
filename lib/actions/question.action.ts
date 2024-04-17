@@ -15,12 +15,24 @@ import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
+import { FilterQuery } from "mongoose";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDatabase();
 
-    const questions = await Question.find({})
+    const { searchQuery } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { questionTitle: { $regex: new RegExp(searchQuery, "i") } },
+        { questionExplantion: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const questions = await Question.find(query)
       .populate({ path: "questionTags", model: Tag })
       .populate({ path: "user", model: User })
       .sort({ createdAt: -1 }); //yeh mujhe latest question top pe return karta hai

@@ -38,9 +38,10 @@ const QuestionForm = ({ type, mongoUserId, questionDetails }: Props) => {
   // This is for the tiny Text Editor
   const editorRef = useRef(null);
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || "");
+  const parsedQuestionDetails =
+    questionDetails && JSON.parse(questionDetails || "");
 
-  const groupedTags = parsedQuestionDetails.questionTags.map(
+  const groupedTags = parsedQuestionDetails?.questionTags.map(
     (tag) => tag.tagName
   );
 
@@ -48,8 +49,8 @@ const QuestionForm = ({ type, mongoUserId, questionDetails }: Props) => {
   const form = useForm<z.infer<typeof QuestionsFormSchema>>({
     resolver: zodResolver(QuestionsFormSchema),
     defaultValues: {
-      title: parsedQuestionDetails.questionTitle || "",
-      explanation: parsedQuestionDetails.questionExplantion || "",
+      title: parsedQuestionDetails?.questionTitle || "",
+      explanation: parsedQuestionDetails?.questionExplantion || "",
       tags: groupedTags || [],
     },
   });
@@ -185,7 +186,7 @@ const QuestionForm = ({ type, mongoUserId, questionDetails }: Props) => {
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={parsedQuestionDetails.questionExplantion || ""}
+                  initialValue={parsedQuestionDetails?.questionExplantion || ""}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
