@@ -1,4 +1,5 @@
 import QuestionCard from "@/components/cards/QuestionCard";
+import Pagination from "@/components/shared/Pagination";
 import ResultNotFound from "@/components/shared/ResultNotFound";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { IQuestion } from "@/database/question.model";
@@ -9,7 +10,7 @@ import React from "react";
 const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionsByTagId({
     tagId: params.id,
-    page: 1,
+    page: searchParams.page ? +searchParams.page : 1,
     searchQuery: searchParams.q,
   });
   return (
@@ -50,6 +51,13 @@ const Page = async ({ params, searchParams }: URLProps) => {
             buttonTitle="Ask a Question"
           />
         )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1} //searchParams se jo bhi aata hai woh string ke format mai aata hai, toh usko number mai convert karne ke liye yeh line use kar rahe hai hum
+          // ? +searchParams.page : 1: This is a ternary operator that checks if searchParams?.page exists and converts it to a number (+searchParams.page). If searchParams?.page is null or undefined, it defaults to 1.
+          isNext={result.isNext}
+        />
       </div>
     </>
   );

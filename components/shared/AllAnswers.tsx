@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getCreatedTimeStamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
 import Votes from "./Votes";
+import Pagination from "./Pagination";
 
 interface Props {
   questionId: string;
@@ -78,6 +79,13 @@ const AllAnswers = async ({
             {/* SPAN ID */}
           </article>
         ))}
+      </div>
+      <div className="mt-10 w-full">
+        <Pagination
+          pageNumber={page ? +page : 1} //searchParams se jo bhi aata hai woh string ke format mai aata hai, toh usko number mai convert karne ke liye yeh line use kar rahe hai hum
+          // ? +searchParams.page : 1: This is a ternary operator that checks if searchParams?.page exists and converts it to a number (+searchParams.page). If searchParams?.page is null or undefined, it defaults to 1.
+          isNext={result.isNext}
+        />
       </div>
     </div>
   );

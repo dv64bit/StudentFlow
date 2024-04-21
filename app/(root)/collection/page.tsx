@@ -6,6 +6,7 @@ import { QuestionFilters } from "@/constants/filter";
 import { getSavedQuestions } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { SearchParamsProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
@@ -18,6 +19,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     clerkId: userId,
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1, //kyuki searchParams ke through page number jo hai woh string format mai idhar aha raha hai isliye hum searchParams ke aage ' + '  use kar rahe hai taki woh string se number mai convert ho jaye, i.e, agar searchParams mai page number hai toh
   });
 
   return (
@@ -62,6 +64,13 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             buttonTitle="Ask a Question"
           />
         )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1} //searchParams se jo bhi aata hai woh string ke format mai aata hai, toh usko number mai convert karne ke liye yeh line use kar rahe hai hum
+          // ? +searchParams.page : 1: This is a ternary operator that checks if searchParams?.page exists and converts it to a number (+searchParams.page). If searchParams?.page is null or undefined, it defaults to 1.
+          isNext={result.isNext}
+        />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import FilterComp from "@/components/shared/FilterComp";
+import Pagination from "@/components/shared/Pagination";
 import ResultNotFound from "@/components/shared/ResultNotFound";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { TagFilters } from "@/constants/filter";
@@ -10,6 +11,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllTags({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
   return (
     <>
@@ -59,6 +61,13 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
           />
         )}
       </section>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1} //searchParams se jo bhi aata hai woh string ke format mai aata hai, toh usko number mai convert karne ke liye yeh line use kar rahe hai hum
+          // ? +searchParams.page : 1: This is a ternary operator that checks if searchParams?.page exists and converts it to a number (+searchParams.page). If searchParams?.page is null or undefined, it defaults to 1.
+          isNext={result.isNext}
+        />
+      </div>
     </>
   );
 };

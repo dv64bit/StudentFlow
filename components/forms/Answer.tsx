@@ -99,21 +99,25 @@ const Answer = ({ question, questionId, userId }: Props) => {
                   {/* added a question explaination editor */}
                   <Editor
                     apiKey={process.env.NEXT_PUBLIC_TINYEDITOR_API_KEY}
+                    onInit={(evt, editor) => {
+                      // @ts-ignore
+                      editorRef.current = editor;
+                    }}
                     init={{
                       height: 350,
-                      menubar: true,
+                      menubar: false,
                       plugins:
                         "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker ",
                       toolbar:
                         "undo redo | blocks fontfamily fontsize | codesample bold italic underline strikethrough | link image media | spellcheckdialog | align lineheight |  numlist bullist indent outdent | emoticons charmap | removeformat",
                       content_style:
                         "body {font-family: Intern;font-size:16px}",
-                      tinycomments_mode: "embedded",
-                      tinycomments_author: "Author name",
-                      mergetags_list: [
-                        { value: "First.Name", title: "First Name" },
-                        { value: "Email", title: "Email" },
-                      ],
+                      // tinycomments_mode: "embedded",
+                      // tinycomments_author: "Author name",
+                      // mergetags_list: [
+                      //   { value: "First.Name", title: "First Name" },
+                      //   { value: "Email", title: "Email" },
+                      // ],
                       skin: mode === "dark" ? "oxide-dark" : "oxide",
                       content_css: mode === "dark" ? "dark" : "light",
                       //@ts-ignore

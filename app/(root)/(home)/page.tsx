@@ -8,13 +8,14 @@ import { HomePageFilters } from "@/constants/filter";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
-import result from "postcss/lib/result";
+import Pagination from "@/components/shared/Pagination";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   // yaha pe mai quesitons ko filter karne ke liye serchParams ka use kar raha hu, and jesa mai filter apply karunga wesa mujhe question home page pe dikhenge
   const result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (
@@ -68,6 +69,13 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             buttonTitle="Ask a Question"
           />
         )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1} //searchParams se jo bhi aata hai woh string ke format mai aata hai, toh usko number mai convert karne ke liye yeh line use kar rahe hai hum
+          // ? +searchParams.page : 1: This is a ternary operator that checks if searchParams?.page exists and converts it to a number (+searchParams.page). If searchParams?.page is null or undefined, it defaults to 1.
+          isNext={result.isNext}
+        />
       </div>
     </>
   );
