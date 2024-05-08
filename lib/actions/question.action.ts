@@ -95,10 +95,20 @@ export async function createQuesiton(params: CreateQuestionParms) {
     });
 
     // Create an interaction record for the user's ask_question action
+    await Interaction.create({
+      user: user,
+      action: "ask_question",
+      question: question._id,
+      tags: tagDocuments,
+    });
+
     // Increment user's reputation by +5 points for creating a question
+    await User.findByIdAndUpdate(user, { $inc: { reputation: 5 } });
 
     revalidatePath(path); //yeh mujhe home page ko bar bar refresh na karna pade new questions dekhne ke liye usske liye madat karta hai
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getQuestionById(params: GetQuestionByIdParams) {
@@ -151,7 +161,15 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
       throw new Error("Question not found");
     }
 
-    // increment author's reputation
+    // increment author's reputation by +1/-1 for upvoting/revoking an upvote to the question
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasupVoted ? -1 : 1 },
+    });
+
+    // increment author's reputation by +10/-10 for recieving an upvote/downvote to the question
+    await User.findByIdAndUpdate(question.user, {
+      $inc: { reputation: hasupVoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
@@ -189,6 +207,13 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     }
 
     // increment author's reputation
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasupVoted ? -2 : 2 },
+    });
+
+    await User.findByIdAndUpdate(question.user, {
+      $inc: { reputation: hasupVoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
