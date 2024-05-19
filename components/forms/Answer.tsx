@@ -78,6 +78,8 @@ const Answer = ({ question, questionId, userId }: Props) => {
       );
       const aiAnswer = await response.json();
 
+      alert("Feature is under Development");
+
       // console.log(aiAnswer);
 
       const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br/>");
