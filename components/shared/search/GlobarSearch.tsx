@@ -87,7 +87,7 @@ const GlobarSearch = () => {
               setIsOpen(false); //aur jese hei search box mai koi bhi value nahi hoti toh suggestion box ko bannd karne ke kam aata hai
             }
           }}
-          className="paragraph-regular text-dark400_light700 no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none"
+          className="paragraph-regular text-dark400_light700 no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
         />
       </div>
       {isOpen && <GlobalResult />}

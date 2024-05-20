@@ -78,30 +78,32 @@ const QuestionCard = ({
           textStyle="body-medium text-dark400_light800"
         />
 
-        {/* This metric is created for the Votes section */}
-        <Matric
-          imgUrl="/assets/icons/like.svg"
-          alt="Upvotes"
-          value={formatNumber(upvotes.length)}
-          title=" Votes"
-          textStyle="small-medium text-dark400_light800"
-        />
-        {/* This metric is created for the Answers section */}
-        <Matric
-          imgUrl="/assets/icons/message.svg"
-          alt="Answers"
-          value={formatNumber(answers.length)}
-          title=" Answers"
-          textStyle="small-medium text-dark400_light800"
-        />
-        {/* This metric is created for the Views section */}
-        <Matric
-          imgUrl="/assets/icons/eye.svg"
-          alt="Views"
-          value={formatNumber(views)}
-          title=" Views"
-          textStyle="small-medium text-dark400_light800"
-        />
+        <div className="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
+          {/* This metric is created for the Votes section */}
+          <Matric
+            imgUrl="/assets/icons/like.svg"
+            alt="Upvotes"
+            value={formatNumber(upvotes.length)}
+            title=" Votes"
+            textStyle="small-medium text-dark400_light800"
+          />
+          {/* This metric is created for the Answers section */}
+          <Matric
+            imgUrl="/assets/icons/message.svg"
+            alt="Answers"
+            value={formatNumber(answers.length)}
+            title=" Answers"
+            textStyle="small-medium text-dark400_light800"
+          />
+          {/* This metric is created for the Views section */}
+          <Matric
+            imgUrl="/assets/icons/eye.svg"
+            alt="Views"
+            value={formatNumber(views)}
+            title=" Views"
+            textStyle="small-medium text-dark400_light800"
+          />
+        </div>
       </div>
     </div>
   );
