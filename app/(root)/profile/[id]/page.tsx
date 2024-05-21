@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { getLoggedInUserInfo } from "@/lib/actions/user.action";
 import { URLProps } from "@/types";
-import { SignedIn, auth } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,6 +11,7 @@ import ProfileLinks from "@/components/shared/ProfileLinks";
 import ProfileStats from "@/components/shared/ProfileStats";
 import QuestionsTab from "@/components/shared/QuestionsTab";
 import AnswersTab from "@/components/shared/AnswersTab";
+import { auth } from "@clerk/nextjs/server";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
