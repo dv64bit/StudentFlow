@@ -13,8 +13,7 @@ import {
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import type { Metadata } from "next";
-import { auth } from "@clerk/nextjs";
-import QuestionsTab from "@/components/shared/QuestionsTab";
+import { auth } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
   title: "Home | StudentFlow",
@@ -25,6 +24,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
 
   let result;
+
   if (searchParams?.filter === "recommended") {
     if (userId) {
       result = await getRecommendedQuestions({
@@ -39,7 +39,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       };
     }
   } else {
-    // yaha pe mai quesitons ko filter karne ke liye serchParams ka use kar raha hu, and jesa mai filter apply karunga wesa mujhe question home page pe dikhenge
     result = await getQuestions({
       searchQuery: searchParams.q,
       filter: searchParams.filter,
