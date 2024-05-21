@@ -39,7 +39,7 @@ export async function globalSearch(params: SearchParams) {
           ...queryResults.map((item) => ({
             title:
               type === "answer"
-                ? `Answer containing${query}`
+                ? `Answer containing ${query}`
                 : item[searchField],
             type,
             id:
@@ -68,7 +68,7 @@ export async function globalSearch(params: SearchParams) {
       results = queryResults.map((item) => ({
         title:
           type === "answer"
-            ? `Answer containing${query}`
+            ? `Answer containing ${query}`
             : item[modelInfo.searchField],
         type,
         id:
