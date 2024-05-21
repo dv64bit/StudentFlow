@@ -41,7 +41,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             <Link
               href={`/tags/${tag._id}`}
               key={tag._id}
-              className="shadow-light100_darknone"
+              className="shadow-light100_darknone capitalize"
             >
               <article className="background-light900_dark200 light-border flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]">
                 <div className="background-light800_dark400 w-fit rounded-sm px-5 py-1.5">
