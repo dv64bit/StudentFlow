@@ -2,7 +2,7 @@ import EditProfileForm from "@/components/forms/EditProfileForm";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import console from "console";
 
 const Page = async ({ params }: ParamsProps) => {
