@@ -184,15 +184,19 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
 
     const { answerId, path } = params;
 
+    // Find the answer
     const answer = await Answer.findById(answerId);
 
     if (!answer) {
       throw new Error("Answer not found");
     }
 
+    // Delete the answer
     await answer.deleteOne({ _id: answerId });
+
+    // Update all question that include the answer
     await Question.updateMany(
-      { _id: answerId },
+      { _id: answer.question },
       { $pull: { answers: answerId } } //jis question se answer delete huva hai, uss question ko bhi bata do ki ab woh answer nahi raha isliye hum questions ke id mai se deleted answer ke id ko hata de rahe hai
     );
     await Interaction.deleteMany({ answer: answerId }); //Jo bhi interaction(views,upvotes...) selected answer se associated hai unn sab ko bhi uda do
